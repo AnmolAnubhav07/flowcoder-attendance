@@ -528,3 +528,105 @@ button:disabled, .btn[disabled] { opacity: 0.6; transform:none; cursor:not-allow
   border: 2px solid rgba(0,0,0,0.08);
   align-self: center;
 }
+/* ====== Extra Mobile Fixes ====== */
+@media (max-width: 600px) {
+  /* Header */
+  .header {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+    gap: 8px;
+    text-align: center;
+  }
+  .header .header-actions {
+    gap: 10px;
+  }
+  .header .search {
+    display: none; /* optional: hide search on very small screens */
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 10px;
+  }
+  .sidebar nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .sidebar a {
+    flex: 1 1 48%;
+    justify-content: center;
+    font-size: 13px;
+  }
+
+  /* Main content */
+  .main {
+    margin-left: 0 !important;
+    padding: 80px 12px 20px;
+    max-width: 100%;
+  }
+
+  /* Cards & Grids */
+  .cards, .grid-2 {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+  .card {
+    padding: 14px;
+  }
+
+  /* Tables */
+  table, th, td {
+    font-size: 12px;
+  }
+
+  /* Buttons */
+  .btn {
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: 6px;
+  }
+
+  /* Modal */
+  #profileModal .modal-content {
+    width: 90%;
+    padding: 14px;
+  }
+}
+
+/* ===== Mobile Navigation ===== */
+.menu-toggle {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: white;
+}
+
+/* Hide sidebar by default on mobile */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: #2c3e50;
+    z-index: 1000;
+    padding: 10px;
+  }
+
+  .sidebar.active {
+    display: block;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+
