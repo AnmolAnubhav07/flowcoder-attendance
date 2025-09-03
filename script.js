@@ -270,3 +270,36 @@ window._campus = {
   getNotes(key) { return loadNote(key); },
   clearAll() { localStorage.clear(); showToast('Local storage cleared'); }
 };
+/* ---------- Profile Picture Change ---------- */
+const profilePic = document.getElementById('profilePic');
+const settingsBtn = document.getElementById('settingsBtn');
+const fileInput = document.getElementById('fileInput');
+
+// Click on settings or profile pic opens file picker
+settingsBtn.addEventListener('click', () => fileInput.click());
+profilePic.addEventListener('click', () => fileInput.click());
+
+// Update profile picture dynamically
+fileInput.addEventListener('change', () => {
+  const file = fileInput.files[0];
+  if(file){
+    const reader = new FileReader();
+    reader.onload = e => profilePic.src = e.target.result;
+    reader.readAsDataURL(file);
+
+    // Save in localStorage to persist across reloads
+    localStorage.setItem('campus_profile_pic', reader.result);
+
+    showToast('Profile picture updated!');
+  }
+});
+
+// On page load, restore saved profile pic if any
+document.addEventListener('DOMContentLoaded', () => {
+  const savedPic = localStorage.getItem('campus_profile_pic');
+  if(savedPic) profilePic.src = savedPic;
+});
+function toggleMenu() {
+  document.querySelector(".sidebar").classList.toggle("active");
+}
+
