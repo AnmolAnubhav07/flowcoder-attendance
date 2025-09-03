@@ -8,8 +8,6 @@
 </head>
 <body>
   <!-- Header -->
-  <!-- Header -->
-  <!-- Header -->
   <header class="header">
     <div class="logo">🖥️ FlowCoder Attendance</div>
     <div class="header-actions">
@@ -18,22 +16,17 @@
 
       <!-- Search -->
       <input type="text" class="search" placeholder="🔍 Search for students, courses...">
-      
-      <!-- Single Notification Icon -->
+
+      <!-- Icons -->
       <span class="icon">🔔</span>
-
-      <!-- Settings button -->
       <button id="settingsBtn" class="icon">⚙️</button>
-
-      <!-- Profile picture (black placeholder) -->
-      <img src="https://via.placeholder.com/35/000000/FFFFFF?text=👤" 
-           alt="Profile" class="profile-pic" id="profilePic">
-
-      <!-- Hidden file input for profile pic -->
+      <img src="https://via.placeholder.com/35/000000/FFFFFF?text=👤" alt="Profile" class="profile-pic" id="profilePic">
       <input type="file" id="fileInput" accept="image/*" style="display:none;">
     </div>
   </header>
 
+  <!-- Mobile Overlay -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
 
   <!-- Sidebar -->
   <aside class="sidebar">
@@ -62,7 +55,7 @@
     <h1>Welcome Back, Student 👋</h1>
     <p id="date"></p>
 
-    <!-- Top Cards Section -->
+    <!-- Top Cards -->
     <section class="cards">
       <div class="card present">
         <h3>Today’s Attendance</h3>
@@ -90,7 +83,7 @@
       </div>
     </section>
 
-    <!-- Grid Section -->
+    <!-- Subject-wise & Trend -->
     <section class="grid-2">
       <div class="box">
         <h2>Subject-wise Attendance</h2>
@@ -115,7 +108,7 @@
       </div>
     </section>
 
-    <!-- Skill Progress Section -->
+    <!-- Skill Progress -->
     <section class="box">
       <h2>Skill Progress Tracker</h2>
       <div class="progress-bar"><span style="width: 80%">Math - 80%</span></div>
@@ -126,7 +119,7 @@
       <div class="progress-bar"><span style="width: 70%">Data Structures - 70%</span></div>
     </section>
 
-    <!-- Suggestions / Quick Actions -->
+    <!-- Suggestions & Quick Tasks -->
     <section class="grid-2">
       <div class="box">
         <h2>Personalized Suggestions</h2>
@@ -153,7 +146,7 @@
       </div>
     </section>
 
-    <!-- Alerts / Notifications -->
+    <!-- Alerts -->
     <section class="box alert-box">
       <h2>System Alerts</h2>
       <ul>
@@ -185,7 +178,7 @@
       </div>
     </section>
 
-    <!-- Footer / Extra Helpers -->
+    <!-- Helpful Links -->
     <section class="box">
       <h2>Helpful Links</h2>
       <ul>
@@ -197,12 +190,12 @@
       </ul>
     </section>
 
-    <!-- Toast Notifications Placeholder -->
+    <!-- Toast Notifications -->
     <div id="campus-toast-container"></div>
   </main>
 
-  <!-- Settings Modal (hidden by default) -->
-  <div class="modal" id="settingsModal" style="display:none;">
+  <!-- Settings Modal -->
+  <div class="modal" id="settingsModal">
     <div class="dialog">
       <h2>Profile Settings</h2>
       <div class="row">
@@ -235,3 +228,4 @@
   <script src="script.js"></script>
 </body>
 </html>
+
