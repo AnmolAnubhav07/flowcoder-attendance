@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | Campus360</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">🏫 Campus360 Admin</div>
+    <div class="header-actions">
+      <input type="text" class="search" placeholder="🔍 Search student...">
+      <span class="icon">🔔</span>
+      <span class="icon">⚙️</span>
+      <img src="https://via.placeholder.com/35" alt="Admin Profile" class="profile-pic">
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>Admin Menu</h2>
+    <nav>
+      <a href="index.html">🏠 Dashboard</a>
+      <a href="attendance.html">📅 Attendance</a>
+      <a href="timetable.html">🕒 Timetable</a>
+      <a href="learning.html">📘 Learning</a>
+      <a href="goals.html">🎯 Goals</a>
+      <a href="reports.html">📊 Reports</a>
+      <a href="admin.html" class="active">👩‍🏫 Admin Panel</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+    <h1>Admin Panel 👩‍🏫</h1>
+    <p id="date"></p>
+
+    <!-- Quick Overview Cards -->
+    <section class="cards">
+      <div class="card present">✅ Present Today: 120</div>
+      <div class="card">⚠️ Late Students: 14</div>
+      <div class="card">❌ Absent: 9</div>
+      <div class="card">📘 Average Attendance: 87%</div>
+      <div class="card">📈 Top Class: 10-A (92%)</div>
+    </section>
+
+    <!-- Class View -->
+    <section class="box">
+      <h2>Live Class Attendance</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Roll No.</th>
+            <th>Name</th>
+            <th>Class</th>
+            <th>Status</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>01</td>
+            <td>Aman Kumar</td>
+            <td>10-A</td>
+            <td>✅ Present</td>
+            <td>On Time</td>
+          </tr>
+          <tr>
+            <td>02</td>
+            <td>Priya Sharma</td>
+            <td>10-A</td>
+            <td>⚠️ Late</td>
+            <td>5 min late</td>
+          </tr>
+          <tr>
+            <td>03</td>
+            <td>Ravi Singh</td>
+            <td>10-B</td>
+            <td>❌ Absent</td>
+            <td>No Info</td>
+          </tr>
+          <tr>
+            <td>04</td>
+            <td>Neha Verma</td>
+            <td>10-B</td>
+            <td>✅ Present</td>
+            <td>On Time</td>
+          </tr>
+          <tr>
+            <td>05</td>
+            <td>Arjun Patel</td>
+            <td>10-C</td>
+            <td>✅ Present</td>
+            <td>Good</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="actions">
+        <button class="btn">Export CSV</button>
+        <button class="btn">Export PDF</button>
+        <button class="btn">Send Alerts</button>
+      </div>
+    </section>
+
+    <!-- Charts -->
+    <section class="grid-2">
+      <div class="box">
+        <h2>Attendance Trends</h2>
+        <div class="chart-placeholder">📊 Monthly Attendance Trend Chart</div>
+      </div>
+      <div class="box">
+        <h2>Class Comparison</h2>
+        <div class="chart-placeholder">📈 Class Performance Comparison</div>
+      </div>
+    </section>
+
+    <!-- Alerts -->
+    <section class="box alert-box">
+      <h2>Important Alerts</h2>
+      <ul>
+        <li>⚠️ 5 students have less than 75% attendance.</li>
+        <li>📢 Class 10-B shows improvement of +8% this month.</li>
+        <li>❌ 3 students absent for more than 7 consecutive days.</li>
+        <li>✅ Class 10-C achieved 90%+ attendance consistently.</li>
+      </ul>
+    </section>
+
+    <!-- Report Generation -->
+    <section class="box">
+      <h2>Generate Custom Reports</h2>
+      <form>
+        <label>
+          Select Class:
+          <select>
+            <option>10-A</option>
+            <option>10-B</option>
+            <option>10-C</option>
+            <option>11-A</option>
+          </select>
+        </label>
+        <label>
+          Date Range:
+          <input type="date"> to <input type="date">
+        </label>
+        <label>
+          Report Type:
+          <select>
+            <option>Attendance Report</option>
+            <option>Performance Report</option>
+            <option>Trend Analysis</option>
+          </select>
+        </label>
+        <button type="submit" class="btn">Generate</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance History | Campus360</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">🎓 Campus360</div>
+    <div class="header-actions">
+      <input type="text" class="search" placeholder="🔍 Search...">
+      <span class="icon">🔔</span>
+      <span class="icon">⚙️</span>
+      <img src="https://via.placeholder.com/35" alt="Profile" class="profile-pic">
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>Menu</h2>
+    <nav>
+      <a href="index.html">🏠 Dashboard</a>
+      <a href="attendance.html" class="active">📅 Attendance History</a>
+      <a href="timetable.html">🕒 Timetable</a>
+      <a href="learning.html">📘 Personalized Learning</a>
+      <a href="goals.html">🎯 Career Goals</a>
+      <a href="reports.html">📊 Reports</a>
+      <a href="admin.html">👩‍🏫 Admin Panel</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+    <h1>Attendance History 📅</h1>
+    <p id="date"></p>
+
+    <!-- Filters -->
+    <section class="box">
+      <h2>Filter Attendance</h2>
+      <div class="filters">
+        <label>
+          Month:
+          <select>
+            <option>August 2025</option>
+            <option>July 2025</option>
+            <option>June 2025</option>
+          </select>
+        </label>
+        <label>
+          Subject:
+          <select>
+            <option>All</option>
+            <option>Math</option>
+            <option>Science</option>
+            <option>English</option>
+            <option>History</option>
+            <option>Computer</option>
+          </select>
+        </label>
+        <button class="btn">Apply Filter</button>
+        <button class="btn">Export CSV</button>
+        <button class="btn">Download PDF</button>
+      </div>
+    </section>
+
+    <!-- Attendance Table -->
+    <section class="box">
+      <h2>Detailed Attendance Records</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Day</th>
+            <th>Subject</th>
+            <th>Status</th>
+            <th>Check-in Time</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1 Aug 2025</td>
+            <td>Monday</td>
+            <td>Math</td>
+            <td>✅ Present</td>
+            <td>09:01 AM</td>
+            <td>On Time</td>
+          </tr>
+          <tr>
+            <td>2 Aug 2025</td>
+            <td>Tuesday</td>
+            <td>Science</td>
+            <td>⚠️ Late</td>
+            <td>09:12 AM</td>
+            <td>5 min Late</td>
+          </tr>
+          <tr>
+            <td>3 Aug 2025</td>
+            <td>Wednesday</td>
+            <td>English</td>
+            <td>❌ Absent</td>
+            <td>-</td>
+            <td>Sick Leave</td>
+          </tr>
+          <tr>
+            <td>4 Aug 2025</td>
+            <td>Thursday</td>
+            <td>History</td>
+            <td>✅ Present</td>
+            <td>09:00 AM</td>
+            <td>On Time</td>
+          </tr>
+          <tr>
+            <td>5 Aug 2025</td>
+            <td>Friday</td>
+            <td>Computer</td>
+            <td>✅ Present</td>
+            <td>09:03 AM</td>
+            <td>On Time</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Summary Stats -->
+    <section class="grid-2">
+      <div class="box">
+        <h2>Summary</h2>
+        <ul>
+          <li>✅ Present: 18 days</li>
+          <li>⚠️ Late: 2 days</li>
+          <li>❌ Absent: 3 days</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h2>Attendance Trend Chart</h2>
+        <div class="chart-placeholder">📊 Chart Placeholder</div>
+      </div>
+    </section>
+
+    <!-- Monthly Breakdown -->
+    <section class="box">
+      <h2>Monthly Breakdown</h2>
+      <div class="progress-bar"><span style="width: 85%">Math - 85%</span></div>
+      <div class="progress-bar"><span style="width: 75%">Science - 75%</span></div>
+      <div class="progress-bar"><span style="width: 60%">English - 60%</span></div>
+      <div class="progress-bar"><span style="width: 90%">History - 90%</span></div>
+      <div class="progress-bar"><span style="width: 95%">Computer - 95%</span></div>
+    </section>
+
+    <!-- Alerts -->
+    <section class="box alert-box">
+      <h2>System Alerts</h2>
+      <ul>
+        <li>⚠️ You were late on 2 Aug (Science)</li>
+        <li>❌ Absent on 3 Aug (English)</li>
+        <li>✅ Attendance marked at 09:01 AM today</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports & Analytics | Campus360</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">🎓 Campus360</div>
+    <div class="header-actions">
+      <input type="text" class="search" placeholder="🔍 Search reports...">
+      <span class="icon">🔔</span>
+      <span class="icon">⚙️</span>
+      <img src="https://via.placeholder.com/35" alt="Profile" class="profile-pic">
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>Menu</h2>
+    <nav>
+      <a href="index.html">🏠 Dashboard</a>
+      <a href="attendance.html">📅 Attendance History</a>
+      <a href="timetable.html">🕒 Timetable</a>
+      <a href="learning.html">📘 Personalized Learning</a>
+      <a href="goals.html">🎯 Career Goals</a>
+      <a href="reports.html" class="active">📊 Reports</a>
+      <a href="admin.html">👩‍🏫 Admin Panel</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+    <h1>Reports & Analytics 📊</h1>
+    <p id="date"></p>
+
+    <!-- Filters -->
+    <section class="box">
+      <h2>Generate Reports</h2>
+      <div class="filters">
+        <label>
+          Report Type:
+          <select>
+            <option>Attendance Report</option>
+            <option>Performance Report</option>
+            <option>Monthly Trend</option>
+            <option>Subject-wise Breakdown</option>
+          </select>
+        </label>
+        <label>
+          Date Range:
+          <input type="date"> to <input type="date">
+        </label>
+        <button class="btn">Apply</button>
+        <button class="btn">Export PDF</button>
+        <button class="btn">Export CSV</button>
+      </div>
+    </section>
+
+    <!-- Summary Cards -->
+    <section class="cards">
+      <div class="card present">✅ Overall Attendance: 88%</div>
+      <div class="card">⚠️ Late Arrivals: 6</div>
+      <div class="card">❌ Absents: 12</div>
+      <div class="card">📘 Best Subject: Computer (95%)</div>
+      <div class="card">📉 Weak Subject: English (68%)</div>
+    </section>
+
+    <!-- Graphs -->
+    <section class="grid-2">
+      <div class="box">
+        <h2>Monthly Attendance Trend</h2>
+        <div class="chart-placeholder">📊 Attendance Chart Placeholder</div>
+      </div>
+      <div class="box">
+        <h2>Performance Over Time</h2>
+        <div class="chart-placeholder">📈 Performance Chart Placeholder</div>
+      </div>
+    </section>
+
+    <!-- Subject Breakdown -->
+    <section class="box">
+      <h2>Subject-wise Performance</h2>
+      <div class="progress-bar"><span style="width: 90%">Math - 90%</span></div>
+      <div class="progress-bar"><span style="width: 85%">Science - 85%</span></div>
+      <div class="progress-bar"><span style="width: 68%">English - 68%</span></div>
+      <div class="progress-bar"><span style="width: 95%">Computer - 95%</span></div>
+      <div class="progress-bar"><span style="width: 75%">History - 75%</span></div>
+    </section>
+
+    <!-- Detailed Report Table -->
+    <section class="box">
+      <h2>Detailed Report Table</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Attendance</th>
+            <th>Performance (%)</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>01 Aug 2025</td>
+            <td>✅ Present</td>
+            <td>82%</td>
+            <td>Good</td>
+          </tr>
+          <tr>
+            <td>02 Aug 2025</td>
+            <td>⚠️ Late</td>
+            <td>78%</td>
+            <td>Needs Improvement</td>
+          </tr>
+          <tr>
+            <td>03 Aug 2025</td>
+            <td>❌ Absent</td>
+            <td>-</td>
+            <td>No Data</td>
+          </tr>
+          <tr>
+            <td>04 Aug 2025</td>
+            <td>✅ Present</td>
+            <td>89%</td>
+            <td>Excellent</td>
+          </tr>
+          <tr>
+            <td>05 Aug 2025</td>
+            <td>✅ Present</td>
+            <td>92%</td>
+            <td>Improved</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Alerts -->
+    <section class="box alert-box">
+      <h2>Report Alerts</h2>
+      <ul>
+        <li>⚠️ Attendance dropped below 80% in English.</li>
+        <li>📢 Math performance improved by 10% this month.</li>
+        <li>✅ Consistent Computer Science performance at 95%.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

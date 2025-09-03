@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlowCoder Attendance Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <!-- Header -->
+<header class="header">
+  <div class="logo">🖥️ FlowCoder Attendance</div>
+  <div class="header-actions">
+    <input type="text" class="search" placeholder="🔍 Search for students, courses...">
+    
+    <!-- Single Notification Icon -->
+    <span class="icon">🔔</span>
+
+    <!-- Settings button -->
+    <button id="settingsBtn" class="icon">⚙️</button>
+
+    <!-- Profile picture (black placeholder) -->
+    <!-- Profile picture (black placeholder) -->
+<img src="https://via.placeholder.com/35/000000/FFFFFF?text=👤" 
+     alt="Profile" class="profile-pic" id="profilePic">
+
+
+    <!-- Hidden file input for profile pic -->
+    <input type="file" id="fileInput" accept="image/*" style="display:none;">
+  </div>
+</header>
+
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>Main Menu</h2>
+    <nav>
+      <a href="index.html" class="active">🏠 Dashboard</a>
+      <a href="attendance.html">📅 Attendance History</a>
+      <a href="timetable.html">🕒 Timetable</a>
+      <a href="learning.html">📘 Learning Resources</a>
+      <a href="goals.html">🎯 Career Goals</a>
+      <a href="reports.html">📊 Reports</a>
+      <a href="admin.html">👩‍🏫 Admin Panel</a>
+    </nav>
+
+    <h2>Extras</h2>
+    <nav>
+      <a href="#">💡 Tips & Tricks</a>
+      <a href="#">📌 Reminders</a>
+      <a href="#">⚙️ Settings</a>
+      <a href="#">📚 Resources</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+    <h1>Welcome Back, Student 👋</h1>
+    <p id="date"></p>
+
+    <!-- Top Cards Section -->
+    <section class="cards">
+      <div class="card present">
+        <h3>Today’s Attendance</h3>
+        <p>✅ Present</p>
+      </div>
+      <div class="card">
+        <h3>Total Attendance</h3>
+        <p>📊 88% this month</p>
+      </div>
+      <div class="card">
+        <h3>Late Arrivals</h3>
+        <p>🚶‍♂️ 3 Times</p>
+      </div>
+      <div class="card">
+        <h3>Upcoming Class</h3>
+        <p>🧪 Physics @ 2:00 PM</p>
+      </div>
+      <div class="card">
+        <h3>Pending Assignments</h3>
+        <p>📄 2 Tasks</p>
+      </div>
+      <div class="card">
+        <h3>New Messages</h3>
+        <p>✉️ 5 Unread</p>
+      </div>
+    </section>
+
+    <!-- Grid Section -->
+    <section class="grid-2">
+      <div class="box">
+        <h2>Subject-wise Attendance</h2>
+        <table>
+          <thead>
+            <tr><th>Subject</th><th>Attendance</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Math</td><td>90%</td><td>✅ Good</td></tr>
+            <tr><td>Science</td><td>85%</td><td>⚠️ Average</td></tr>
+            <tr><td>English</td><td>80%</td><td>⚠️ Needs Work</td></tr>
+            <tr><td>History</td><td>70%</td><td>❌ Low</td></tr>
+            <tr><td>Computer</td><td>95%</td><td>✅ Excellent</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="box">
+        <h2>Monthly Attendance Trend</h2>
+        <div class="chart-placeholder">📊 Chart Placeholder</div>
+        <p class="note">Showing weekly trend (Aug 2025)</p>
+      </div>
+    </section>
+
+    <!-- Skill Progress Section -->
+    <section class="box">
+      <h2>Skill Progress Tracker</h2>
+      <div class="progress-bar"><span style="width: 80%">Math - 80%</span></div>
+      <div class="progress-bar"><span style="width: 60%">Science - 60%</span></div>
+      <div class="progress-bar"><span style="width: 45%">English - 45%</span></div>
+      <div class="progress-bar"><span style="width: 90%">Python - 90%</span></div>
+      <div class="progress-bar"><span style="width: 50%">Web Dev - 50%</span></div>
+      <div class="progress-bar"><span style="width: 70%">Data Structures - 70%</span></div>
+    </section>
+
+    <!-- Suggestions / Quick Actions -->
+    <section class="grid-2">
+      <div class="box">
+        <h2>Personalized Suggestions</h2>
+        <ul>
+          <li>⚡ Practice: Algebra Worksheet</li>
+          <li>🎥 Watch: Physics Lecture on Motion</li>
+          <li>📘 Review: English Grammar Notes</li>
+          <li>🎯 Set New Goal: Python Basics</li>
+          <li>💡 Try: Extra Practice Quiz</li>
+          <li>📚 Read: Computer Science Notes</li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h2>Quick Tasks</h2>
+        <div class="quick-buttons">
+          <button class="btn">Practice</button>
+          <button class="btn">Review</button>
+          <button class="btn">Watch Lecture</button>
+          <button class="btn">Set New Goal</button>
+          <button class="btn">Submit Assignment</button>
+          <button class="btn">Check Grades</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Alerts / Notifications -->
+    <section class="box alert-box">
+      <h2>System Alerts</h2>
+      <ul>
+        <li>✅ Attendance marked successfully at 9:02 AM</li>
+        <li>⚠️ You were late on 3rd Aug (5 mins late)</li>
+        <li>📢 Free Period now! Use this time wisely</li>
+        <li>📌 Reminder: Submit assignment for Web Dev</li>
+        <li>⚡ Update: New Python course available</li>
+      </ul>
+    </section>
+
+    <!-- Upcoming Events -->
+    <section class="cards">
+      <div class="card">
+        <h3>Next Lecture</h3>
+        <p>🧪 Physics Lab @ 3:30 PM</p>
+      </div>
+      <div class="card">
+        <h3>Workshop</h3>
+        <p>💻 FlowCoder JS Bootcamp @ 5:00 PM</p>
+      </div>
+      <div class="card">
+        <h3>Exam Reminder</h3>
+        <p>📝 Math Test on 7th Sep</p>
+      </div>
+      <div class="card">
+        <h3>Project Deadline</h3>
+        <p>📂 Web Dev Final Project - 15th Sep</p>
+      </div>
+    </section>
+
+    <!-- Footer / Extra Helpers -->
+    <section class="box">
+      <h2>Helpful Links</h2>
+      <ul>
+        <li>📘 Learning Resources</li>
+        <li>🛠️ Tools & IDEs</li>
+        <li>📊 Performance Dashboard</li>
+        <li>💬 Student Forum</li>
+        <li>📌 Important Announcements</li>
+      </ul>
+    </section>
+
+    <!-- Toast Notifications Placeholder -->
+    <div id="campus-toast-container"></div>
+  </main>
+
+  <!-- Settings Modal (hidden by default) -->
+  <div class="modal" id="settingsModal" style="display:none;">
+    <div class="dialog">
+      <h2>Profile Settings</h2>
+      <div class="row">
+        <div class="col">
+          <label>Full Name</label>
+          <input type="text" value="John Doe">
+        </div>
+        <div class="col">
+          <label>Email</label>
+          <input type="text" value="john@example.com">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label>Change Profile Picture</label>
+          <button class="btn" id="changePicBtn">Upload Image</button>
+        </div>
+        <div class="col">
+          <label>Password</label>
+          <input type="text" value="********">
+        </div>
+      </div>
+      <div class="mt-12">
+        <button class="btn success" id="saveSettings">💾 Save Changes</button>
+        <button class="btn ghost" id="cancelSettings">❌ Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

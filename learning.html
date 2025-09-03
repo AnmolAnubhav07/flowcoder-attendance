@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Personalized Learning | Campus360</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">🎓 Campus360</div>
+    <div class="header-actions">
+      <input type="text" class="search" placeholder="🔍 Search courses, topics..." />
+      <span class="icon">🔔</span>
+      <span class="icon">⚙️</span>
+      <img src="https://via.placeholder.com/35" alt="Profile" class="profile-pic" />
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>Menu</h2>
+    <nav>
+      <a href="index.html">🏠 Dashboard</a>
+      <a href="attendance.html">📅 Attendance History</a>
+      <a href="timetable.html">🕒 Timetable</a>
+      <a href="learning.html" class="active">📘 Personalized Learning</a>
+      <a href="goals.html">🎯 Career Goals</a>
+      <a href="reports.html">📊 Reports</a>
+      <a href="admin.html">👩‍🏫 Admin Panel</a>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+    <h1>Personalized Learning</h1>
+    <p id="date"></p>
+
+    <!-- Top summary cards -->
+    <section class="cards" aria-label="summary-cards">
+      <div class="card">
+        <h3>Learning Streak</h3>
+        <p style="font-size:22px;font-weight:600;">🔥 7 days</p>
+        <p class="note">Keep it up — complete one activity each day to maintain streak.</p>
+      </div>
+
+      <div class="card">
+        <h3>Active Courses</h3>
+        <p style="font-size:22px;font-weight:600;">4</p>
+        <p class="note">Courses in progress</p>
+      </div>
+
+      <div class="card">
+        <h3>Tasks Due</h3>
+        <p style="font-size:22px;font-weight:600;">3</p>
+        <p class="note">Quizzes & assignments</p>
+      </div>
+
+      <div class="card">
+        <h3>Skill Progress</h3>
+        <p style="font-size:22px;font-weight:600;">68%</p>
+        <p class="note">Average across tracked skills</p>
+      </div>
+    </section>
+
+    <!-- Filters & actions -->
+    <section class="box">
+      <h2>Filters & Quick Actions</h2>
+      <div class="filters" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+        <label>
+          Subject:
+          <select id="filter-subject">
+            <option value="all">All</option>
+            <option value="math">Mathematics</option>
+            <option value="physics">Physics</option>
+            <option value="cs">Computer Science</option>
+            <option value="eng">English</option>
+          </select>
+        </label>
+
+        <label>
+          Type:
+          <select id="filter-type">
+            <option value="all">All</option>
+            <option value="course">Course</option>
+            <option value="video">Video</option>
+            <option value="practice">Practice</option>
+            <option value="quiz">Quiz</option>
+          </select>
+        </label>
+
+        <label>
+          Sort:
+          <select id="filter-sort">
+            <option value="recommend">Recommended</option>
+            <option value="progress">Least Progress</option>
+            <option value="new">Newest</option>
+          </select>
+        </label>
+
+        <button class="btn" onclick="applyFilters()">Apply</button>
+        <button class="btn" onclick="exportLearning()">Export Progress</button>
+        <button class="btn" onclick="shareProfile()">Share Profile</button>
+      </div>
+    </section>
+
+    <!-- Learning area: catalog + details -->
+    <section class="grid-2">
+      <!-- Left column: Course Catalog -->
+      <div class="box" id="catalog">
+        <h2>Course Catalog & In-progress Courses</h2>
+
+        <!-- Course card template repeated -->
+        <div class="course-card" data-subject="cs" style="margin-bottom:16px;padding:14px;border-radius:10px;border:1px solid #eef2ff;background:#fbfdff">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <h3 style="margin:0 0 6px 0">Python for Engineers</h3>
+              <div style="font-size:13px;color:#6b7280">Fundamentals, automation, data scripts</div>
+              <div style="margin-top:10px;max-width:320px">
+                <div class="progress-bar" style="height:18px;border-radius:10px;overflow:hidden;background:#e6eefc">
+                  <span style="width:72%;display:block;height:100%;background:linear-gradient(90deg,#06b6d4,#3b82f6);color:#fff;padding-left:8px;font-size:12px;line-height:18px">72% — Intermediate</span>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+              <div style="font-size:13px;color:#374151">Last Active: 1 day ago</div>
+              <div style="display:flex;gap:8px">
+                <button class="btn" onclick="openCourseModal('Python for Engineers')">Details</button>
+                <button class="btn" onclick="continueCourse('Python for Engineers')">Continue</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- quick resources -->
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+            <a class="btn" style="background:#10b981" href="#" onclick="alert('Practice sets opened')">Practice</a>
+            <a class="btn" style="background:#ef4444" href="#" onclick="alert('Quiz opened')">Quiz</a>
+            <a class="btn" style="background:#8b5cf6" href="#" onclick="alert('Lecture video')">Video</a>
+            <a class="btn" style="background:#64748b" href="#" onclick="alert('Resources')">Resources</a>
+          </div>
+        </div>
+
+        <!-- another course -->
+        <div class="course-card" data-subject="math" style="margin-bottom:16px;padding:14px;border-radius:10px;border:1px solid #fff;background:#fff">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <h3 style="margin:0 0 6px 0">Calculus — Integration Mastery</h3>
+              <div style="font-size:13px;color:#6b7280">Techniques, definite integrals, applications</div>
+              <div style="margin-top:10px;max-width:320px">
+                <div class="progress-bar" style="height:18px;border-radius:10px;overflow:hidden;background:#f1f5f9">
+                  <span style="width:45%;display:block;height:100%;background:linear-gradient(90deg,#f97316,#f59e0b);color:#fff;padding-left:8px;font-size:12px;line-height:18px">45% — Needs Practice</span>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+              <div style="font-size:13px;color:#374151">Last Active: 3 days ago</div>
+              <div style="display:flex;gap:8px">
+                <button class="btn" onclick="openCourseModal('Calculus — Integration Mastery')">Details</button>
+                <button class="btn" onclick="continueCourse('Calculus — Integration Mastery')">Continue</button>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+            <a class="btn" style="background:#06b6d4" href="#" onclick="alert('Practice opened')">Practice</a>
+            <a class="btn" style="background:#ef4444" href="#" onclick="alert('Quiz opened')">Quiz</a>
+            <a class="btn" style="background:#8b5cf6" href="#" onclick="alert('Lecture video opened')">Video</a>
+          </div>
+        </div>
+
+        <!-- recommended new -->
+        <div class="course-card" data-subject="eng" style="margin-bottom:16px;padding:14px;border-radius:10px;border:1px dashed #e6e6fa;background:#fff">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <h3 style="margin:0 0 6px 0">English — Academic Writing</h3>
+              <div style="font-size:13px;color:#6b7280">Essays, comprehension, structuring arguments</div>
+              <div style="margin-top:10px;max-width:320px">
+                <div class="progress-bar" style="height:18px;border-radius:10px;overflow:hidden;background:#faf7ff">
+                  <span style="width:12%;display:block;height:100%;background:linear-gradient(90deg,#8b5cf6,#a78bfa);color:#fff;padding-left:8px;font-size:12px;line-height:18px">12% — New</span>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+              <div style="font-size:13px;color:#374151">Suggested for goal: Communication</div>
+              <div style="display:flex;gap:8px">
+                <button class="btn" onclick="openCourseModal('English — Academic Writing')">Details</button>
+                <button class="btn" onclick="startCourse('English — Academic Writing')">Start</button>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+            <a class="btn" style="background:#06b6d4" href="#" onclick="alert('Preview opened')">Preview</a>
+            <a class="btn" style="background:#10b981" href="#" onclick="alert('Added to watchlist')">Add to watchlist</a>
+          </div>
+        </div>
+
+        <!-- Load more / pagination -->
+        <div style="text-align:center;margin-top:8px">
+          <button class="btn" onclick="alert('Load more courses')">Load more</button>
+        </div>
+      </div>
+
+      <!-- Right column: Suggested tasks, videos, badges -->
+      <div class="box">
+        <h2>Suggested Tasks & Resources</h2>
+
+        <!-- Task list with checkboxes -->
+        <div style="margin-top:8px">
+          <h3 style="margin-bottom:8px">Today’s Tasks</h3>
+          <ul style="list-style:none;padding:0">
+            <li style="display:flex;align-items:center;gap:12px;padding:8px 0">
+              <input type="checkbox" id="t1" onchange="toggleTask(this)" />
+              <label for="t1">Complete Algebra Practice set (20 questions)</label>
+              <button class="btn" style="margin-left:auto" onclick="alert('Practice started')">Start</button>
+            </li>
+            <li style="display:flex;align-items:center;gap:12px;padding:8px 0">
+              <input type="checkbox" id="t2" onchange="toggleTask(this)" />
+              <label for="t2">Watch Physics: Motion lecture (20m)</label>
+              <button class="btn" style="margin-left:auto" onclick="alert('Playing video')">Play</button>
+            </li>
+            <li style="display:flex;align-items:center;gap:12px;padding:8px 0">
+              <input type="checkbox" id="t3" onchange="toggleTask(this)" />
+              <label for="t3">Attempt short quiz: Calculus (10 q)</label>
+              <button class="btn" style="margin-left:auto" onclick="alert('Quiz opened')">Take Quiz</button>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Video lecture cards -->
+        <div style="margin-top:16px">
+          <h3 style="margin-bottom:8px">Video Lectures</h3>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div style="background:#fff;padding:12px;border-radius:10px;border:1px solid #eef2ff">
+              <div style="height:110px;background:#0ea5a6;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff">Video 1</div>
+              <h4 style="margin:10px 0 4px 0">Kinematics — Graph Interpretation</h4>
+              <p style="font-size:13px;color:#6b7280;margin-bottom:8px">20 min · Dr. Sharma</p>
+              <div style="display:flex;gap:8px">
+                <button class="btn" onclick="alert('Watching video 1')">Watch</button>
+                <button class="btn" onclick="alert('Save for later')">Save</button>
+              </div>
+            </div>
+
+            <div style="background:#fff;padding:12px;border-radius:10px;border:1px solid #eef2ff">
+              <div style="height:110px;background:#ef4444;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff">Video 2</div>
+              <h4 style="margin:10px 0 4px 0">Integration Techniques</h4>
+              <p style="font-size:13px;color:#6b7280;margin-bottom:8px">28 min · Ms. Rao</p>
+              <div style="display:flex;gap:8px">
+                <button class="btn" onclick="alert('Watching video 2')">Watch</button>
+                <button class="btn" onclick="alert('Save for later')">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achievements / badges -->
+        <div style="margin-top:16px">
+          <h3>Achievements</h3>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+            <div style="background:#fff;padding:10px;border-radius:8px;min-width:120px;text-align:center;border:1px solid #eef2ff">
+              <div style="font-size:28px">🏆</div>
+              <div style="font-weight:600">Streak Master</div>
+              <div style="font-size:12px;color:#6b7280">7 days</div>
+            </div>
+
+            <div style="background:#fff;padding:10px;border-radius:8px;min-width:120px;text-align:center;border:1px solid #eef2ff">
+              <div style="font-size:28px">📚</div>
+              <div style="font-weight:600">Top Learner</div>
+              <div style="font-size:12px;color:#6b7280">Math — 88%</div>
+            </div>
+
+            <div style="background:#fff;padding:10px;border-radius:8px;min-width:120px;text-align:center;border:1px solid #eef2ff">
+              <div style="font-size:28px">⚡</div>
+              <div style="font-weight:600">Quick Starter</div>
+              <div style="font-size:12px;color:#6b7280">10 tasks</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resource downloads -->
+        <div style="margin-top:16px">
+          <h3>Quick Resources</h3>
+          <ul style="list-style:none;padding:0;margin-top:8px">
+            <li style="padding:8px 0;display:flex;gap:12px;align-items:center">
+              <span>📄</span>
+              <div>
+                <div style="font-weight:600">Algebra Practice Pack (PDF)</div>
+                <div style="font-size:12px;color:#6b7280">12 pages · 20 questions</div>
+              </div>
+              <div style="margin-left:auto"><button class="btn" onclick="alert('Downloading PDF')">Download</button></div>
+            </li>
+
+            <li style="padding:8px 0;display:flex;gap:12px;align-items:center">
+              <span>🧾</span>
+              <div>
+                <div style="font-weight:600">CS Lab Sheet — Arrays</div>
+                <div style="font-size:12px;color:#6b7280">Lab exercise</div>
+              </div>
+              <div style="margin-left:auto"><button class="btn" onclick="alert('Open doc')">Open</button></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes & Reflection -->
+    <section class="grid-2">
+      <div class="box">
+        <h2>Notes & Reflection</h2>
+        <textarea id="notes-area" style="width:100%;min-height:160px;padding:12px;border-radius:8px;border:1px solid #e6eefc" placeholder="Write quick notes, study plan, reflection..."></textarea>
+        <div style="display:flex;gap:8px;margin-top:10px">
+          <button class="btn" onclick="saveNotes()">Save Note</button>
+          <button class="btn" onclick="clearNotes()">Clear</button>
+          <button class="btn" onclick="downloadNotes()">Export</button>
+        </div>
+      </div>
+
+      <div class="box">
+        <h2>Learning Insights</h2>
+        <p style="color:#6b7280">Auto-generated insight based on recent activities</p>
+        <ul style="margin-top:10px">
+          <li>📈 Your Python progress improved by 12% this week.</li>
+          <li>⏱ Average session length: 28 minutes.</li>
+          <li>🔔 You perform best between 6–8 PM — schedule practice then.</li>
+        </ul>
+
+        <div style="margin-top:12px">
+          <h3>Goal Alignment</h3>
+          <p style="font-size:13px;color:#374151;margin-bottom:8px">Selected Goal: <strong>Python for Engineers</strong></p>
+          <div class="progress-bar" style="height:16px;margin-bottom:8px">
+            <span style="width:64%;display:block;height:100%;background:linear-gradient(90deg,#06b6d4,#3b82f6);color:#fff;padding-left:8px;font-size:12px;line-height:16px">64% toward goal</span>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="btn" onclick="markGoal()">Mark Goal Achieved</button>
+            <button class="btn" onclick="editGoal()">Edit Goal</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Learning leaderboard -->
+    <section class="box">
+      <h2>Leaderboard — Class Top Learners</h2>
+      <table>
+        <tr><th>Rank</th><th>Name</th><th>Skill Score</th><th>Completed Tasks</th></tr>
+        <tr><td>1</td><td>Ravi K.</td><td>92</td><td>34</td></tr>
+        <tr><td>2</td><td>Sara P.</td><td>89</td><td>30</td></tr>
+        <tr><td>3</td><td>Aditi M.</td><td>86</td><td>28</td></tr>
+        <tr><td>4</td><td>You</td><td>68</td><td>16</td></tr>
+      </table>
+    </section>
+
+    <!-- Footer quick actions -->
+    <section style="margin-top:18px;display:flex;gap:10px;align-items:center">
+      <button class="btn" onclick="startSuggested()">Start Suggested Task</button>
+      <button class="btn" onclick="exportLearning()">Export Progress CSV</button>
+      <button class="btn" onclick="alert('Settings')">Learning Settings</button>
+    </section>
+  </main>
+
+  <script src="script.js" defer></script>
+
+  <!-- Page-specific scripts -->
+  <script>
+    // small helpers (page-specific)
+    function applyFilters() {
+      const s = document.getElementById('filter-subject').value;
+      const t = document.getElementById('filter-type').value;
+      const sort = document.getElementById('filter-sort').value;
+      alert('Filters applied: subject=' + s + ', type=' + t + ', sort=' + sort);
+      // In a real app you'd filter DOM items or re-fetch data here.
+    }
+
+    function exportLearning() {
+      alert('Exporting progress as CSV...');
+      // Example: create CSV from sample rows (client-side)
+      const rows = [['Course','Progress'], ['Python for Engineers', '72%'], ['Calculus', '45%']];
+      const csv = rows.map(r => r.join(',')).join('\\n');
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'learning_progress.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function shareProfile() {
+      alert('Profile share link copied to clipboard (simulated).');
+    }
+
+    function continueCourse(name) {
+      alert('Continuing course: ' + name);
+    }
+    function openCourseModal(name) {
+      alert('Course details modal: ' + name + ' (simulated).');
+    }
+    function startCourse(name) {
+      alert('Starting course: ' + name);
+    }
+
+    function toggleTask(cb) {
+      if (cb.checked) {
+        cb.parentNode.style.opacity = 0.6;
+      } else {
+        cb.parentNode.style.opacity = 1;
+      }
+    }
+
+    function saveNotes() {
+      const t = document.getElementById('notes-area').value;
+      if (!t.trim()) return alert('Note is empty');
+      alert('Note saved (simulated).');
+      // store locally
+      localStorage.setItem('learning_note', t);
+    }
+
+    function clearNotes() {
+      document.getElementById('notes-area').value = '';
+      localStorage.removeItem('learning_note');
+    }
+
+    function downloadNotes() {
+      const t = document.getElementById('notes-area').value;
+      const blob = new Blob([t], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'notes.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function markGoal() {
+      alert('Marked goal as achieved (simulated). Congratulations!');
+    }
+    function editGoal() {
+      alert('Open goal editor (simulated).');
+    }
+    function startSuggested() {
+      alert('Starting suggested task: Algebra practice');
+    }
+
+    // Load saved notes on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('learning_note');
+      if (saved) document.getElementById('notes-area').value = saved;
+    });
+  </script>
+
+  <!-- small inline styles to ensure spacing for elements added above -->
+  <style>
+    /* ensure course-card spacing and catalog look */
+    .course-card + .course-card { margin-top: 12px; }
+    .note { color: #6b7280; font-size: 13px; margin-top: 6px; }
+    .progress-bar { border-radius: 8px; overflow: hidden; background: #f1f5f9; height:20px; }
+    .progress-bar span { display:block; height:100%; color:#fff; padding-left:8px; line-height:20px; }
+  </style>
+</body>
+</html>

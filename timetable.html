@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Timetable | Campus360</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">🎓 Campus360</div>
+    <div class="header-actions">
+      <input type="text" class="search" placeholder="🔍 Search classes, teachers..." />
+      <span class="icon">🔔</span>
+      <span class="icon">⚙️</span>
+      <img src="https://via.placeholder.com/35" alt="Profile" class="profile-pic"/>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>Menu</h2>
+    <nav>
+      <a href="index.html">🏠 Dashboard</a>
+      <a href="attendance.html">📅 Attendance History</a>
+      <a href="timetable.html" class="active">🕒 Timetable</a>
+      <a href="learning.html">📘 Personalized Learning</a>
+      <a href="goals.html">🎯 Career Goals</a>
+      <a href="reports.html">📊 Reports</a>
+      <a href="admin.html">👩‍🏫 Admin Panel</a>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+    <h1>Weekly Timetable 🕒</h1>
+    <p id="date"></p>
+
+    <!-- Filters / Actions -->
+    <section class="box">
+      <h2>Filters & Actions</h2>
+      <div class="filters" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+        <label>
+          Week:
+          <select>
+            <option>Sep 01 — Sep 07, 2025</option>
+            <option>Sep 08 — Sep 14, 2025</option>
+            <option>Sep 15 — Sep 21, 2025</option>
+          </select>
+        </label>
+        <label>
+          Class:
+          <select>
+            <option>All</option>
+            <option>Mathematics</option>
+            <option>Physics</option>
+            <option>Chemistry</option>
+            <option>English</option>
+            <option>Computer Science</option>
+          </select>
+        </label>
+        <label>
+          View:
+          <select id="view-mode">
+            <option selected>Grid</option>
+            <option>List</option>
+            <option>Compact</option>
+          </select>
+        </label>
+        <button class="btn" onclick="alert('Applied')">Apply</button>
+        <button class="btn" onclick="alert('Timetable exported as PDF')">Download PDF</button>
+        <button class="btn" onclick="alert('Timetable exported as CSV')">Export CSV</button>
+      </div>
+    </section>
+
+    <!-- Today Summary + Free Period -->
+    <section class="cards">
+      <div class="card present">
+        <h3>Current Period</h3>
+        <p>🧪 Physics — Room A105 (2:00 – 3:00 PM)</p>
+        <p style="opacity:.9">Instructor: Dr. Sharma</p>
+      </div>
+      <div class="card">
+        <h3>Next Up</h3>
+        <p>📘 English — Room B304 (3:00 – 4:00 PM)</p>
+        <p style="opacity:.7">Topic: Reading Comprehension</p>
+      </div>
+      <div class="card">
+        <h3>Free Period</h3>
+        <p>✅ 11:00 – 12:00 PM</p>
+        <div class="quick-buttons" style="margin-top:8px">
+          <button class="btn" onclick="alert('Practice Algebra')">Practice</button>
+          <button class="btn" onclick="alert('Watch CS lecture')">Watch</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Today’s Load</h3>
+        <p>📚 5 classes · 1 free</p>
+        <p style="opacity:.7">Labs: 1 · Theory: 4</p>
+      </div>
+    </section>
+
+    <!-- Weekly Grid -->
+    <section class="box">
+      <h2>Weekly Grid (Mon — Fri)</h2>
+      <div class="note">Tip: Hover a slot to see details. Use filters above to narrow down.</div>
+      <div class="timetable-grid" style="display:grid;grid-template-columns:120px repeat(5,1fr);gap:10px;margin-top:15px">
+        <!-- Header Row -->
+        <div></div>
+        <div class="box" style="padding:10px;text-align:center">Mon</div>
+        <div class="box" style="padding:10px;text-align:center">Tue</div>
+        <div class="box" style="padding:10px;text-align:center">Wed</div>
+        <div class="box" style="padding:10px;text-align:center">Thu</div>
+        <div class="box" style="padding:10px;text-align:center">Fri</div>
+
+        <!-- 9 AM -->
+        <div class="box" style="padding:10px">09:00</div>
+        <div class="box slot">
+          <div class="slot-title">Mathematics</div>
+          <div class="slot-sub">Room A201</div>
+          <div class="slot-meta">9:00 – 10:00</div>
+        </div>
+        <div class="box slot free">
+          <div class="slot-title">Free</div>
+          <div class="slot-sub">—</div>
+          <div class="slot-meta">9:00 – 10:00</div>
+        </div>
+        <div class="box slot">
+          <div class="slot-title">English</div>
+          <div class="slot-sub">Room B102</div>
+          <div class="slot-meta">9:00 – 10:00</div>
+        </div>
+        <div class="box slot">
+          <div class="slot-title">Computer Science (Lab)</div>
+          <div class="slot-sub">Lab-1</div>
+          <div class="slot-meta">9:00 – 10:30</div>
+        </div>
+        <div class="box slot">
+          <div class="slot-title">Chemistry</div>
+          <div class="slot-sub">Room C210</div>
+          <div class="slot-meta">9:00 – 10:00</div>
+        </div>
+
+        <!-- 10 AM -->
+        <div class="box" style="padding:10px">10:00</div>
+        <div class="box slot">
+          <div class="slot-title">Physics</div>
+          <div class="slot-sub">A105</div>
+          <div class="slot-meta">10:00 – 11:00</div>
+        </div>
+        <div class="box slot">
+          <div class="slot-title">Mathematics</div>
+          <div class="slot-sub">A201</div>
+          <div class="slot-meta">10:00 – 11:00</div>
+        </div>
+        <div class="box slot free">
+          <div class="slot-title">Free</div>
+          <div class="slot-sub">—</div>
+          <div class="slot-meta">10:00 – 11:00</div>
+        </div>
+        <div class="box slot">
+          <div class="slot-title">English</div>
+          <div class="slot-sub">B304</div>
+          <div class="slot-meta">10:00 – 11:00</div>
+        </div>
+        <div class="box slot">
+          <div class="slot-title">Computer Science</div>
+          <div class="slot-sub">Lab-2</div>
+          <div class="slot-meta">10:00 – 11:00</div>
+        </div>
+
+        <!-- 11 AM -->
+        <div class="box" style="padding:10px">11:00</div>
+        <div class="box slot free">
+          <div class="slot-title">Free</div>
+          <div class="slot-sub">—</div>
+          <div class="slot-meta">11:00 – 12:00</div>
+        </div>
+        <div class="box slot">
+          <div class="slot-title">Chemistry</div>
+          <div class="slot-sub">C210</div>
+          <div class="slot-meta">11:00 – 12:00</div>
+        </div>
+        <div class="box slot">
+          <div class="slot-title">Physics</div>
+          <div class="slot-sub">A105</div>
+          <div class="slot-meta">11:00 – 12:00</div>
+        </div>
+        <div class="box slot free">
+          <div class="slot-title">Free</div>
+          <div class="slot-sub">—</div>
+          <div class="slot-meta">11:00 – 12:00</div>
+        </div>
+        <div class="box slot">
+          <div class="slot-title">Mathematics</div>
+          <div class="slot-sub">A201</div>
+          <div class="slot-meta">11:00 – 12:00</div>
+        </div>
+
+        <!-- 12 PM -->
+        <div class="box" style="padding:10px">12:00</div>
+        <div class="box slot">
+          <div class="slot-title">Computer Science (Lab)</div>
+          <div class="slot-sub">Lab-1</div>
+          <div class="slot-meta">12:00 – 1:30</div>
+        </div>
+        <div class="box slot">
+          <div class="slot-title">English</div>
+          <div class="slot-sub">B102</div>
+          <div class="slot-meta">12:00 – 1:00</div>
+        </div>
+        <div class="box slot">
+          <div class="slot-title">Mathematics</div>
+          <div class="slot-sub">A201</div>
+          <div class="slot-meta">12:00 – 1:00</div>
+        </div>
+        <div class="box slot">
+          <div class="slot-title">Chemistry</div>
+          <div class="slot-sub">C210</div>
+          <div class="slot-meta">12:00 – 1:00</div>
+        </div>
+        <div class="box slot free">
+          <div class="slot-title">Free</div>
+          <div class="slot-sub">—</div>
+          <div class="slot-meta">12:00 – 1:00</div>
+        </div>
+
+        <!-- 1 PM -->
+        <div class="box" style="padding:10px">13:00</div>
+        <div class="box slot free">
+          <div class="slot-title">Lunch</div>
+          <div class="slot-sub">🍽️</div>
+          <div class="slot-meta">1:00 – 2:00</div>
+        </div>
+        <div class="box slot free">
+          <div class="slot-title">Lunch</div>
+          <div class="slot-sub">🍽️</div>
+          <div class="slot-meta">1:00 – 2:00</div>
+        </div>
+        <div class="box slot free">
+          <div class="slot-title">Lunch</div>
+          <div class="slot-sub">🍽️</div>
+          <div class="slot-meta">1:00 – 2:00</div>
+        </div>
+        <div class="box slot free">
+          <div class="slot-title">Lunch</div>
+          <div class="slot-sub">🍽️</div>
+          <div class="slot-meta">1:00 – 2:00</div>
+        </div>
+        <div class="box slot free">
+          <div class="slot-title">Lunch</div>
+          <div class="slot-sub">🍽️</div>
+          <div class="slot-meta">1:00 – 2:00</div>
+        </div>
+
+        <!-- 2 PM -->
+        <div class="box" style="padding:10px">14:00</div>
+        <div class="box slot">
+          <div class="slot-title">English</div>
+          <div class="slot-sub">B304</div>
+          <div class="slot-meta">2:00 – 3:00</div>
+        </div>
+        <div class="box slot">
+          <div class="slot-title">Computer Science</div>
+          <div class="slot-sub">Lab-2</div>
+          <div class="slot-meta">2:00 – 3:00</div>
+        </div>
+        <div class="box slot">
+          <div class="slot-title">Mathematics (Tutorial)</div>
+          <div class="slot-sub">A201</div>
+          <div class="slot-meta">2:00 – 3:00</div>
+        </div>
+        <div class="box slot">
+          <div class="slot-title">Physics</div>
+          <div class="slot-sub">A105</div>
+          <div class="slot-meta">2:00 – 3:00</div>
+        </div>
+        <div class="box slot">
+          <div class="slot-title">Chemistry</div>
+          <div class="slot-sub">C210</div>
+          <div class="slot-meta">2:00 – 3:00</div>
+        </div>
+
+        <!-- 3 PM -->
+        <div class="box" style="padding:10px">15:00</div>
+        <div class="box slot">
+          <div class="slot-title">Project Hour</div>
+          <div class="slot-sub">Lab-3</div>
+          <div class="slot-meta">3:00 – 4:00</div>
+        </div>
+        <div class="box slot free">
+          <div class="slot-title">Free</div>
+          <div class="slot-sub">—</div>
+          <div class="slot-meta">3:00 – 4:00</div>
+        </div>
+        <div class="box slot">
+          <div class="slot-title">English</div>
+          <div class="slot-sub">B304</div>
+          <div class="slot-meta">3:00 – 4:00</div>
+        </div>
+        <div class="box slot">
+          <div class="slot-title">Mathematics</div>
+          <div class="slot-sub">A201</div>
+          <div class="slot-meta">3:00 – 4:00</div>
+        </div>
+        <div class="box slot">
+          <div class="slot-title">Computer Science</div>
+          <div class="slot-sub">Lab-1</div>
+          <div class="slot-meta">3:00 – 4:00</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- List View (for smaller screens / alt view) -->
+    <section class="box">
+      <h2>Today’s Schedule (List View)</h2>
+      <div class="note">Compact list of today’s classes with quick actions.</div>
+      <div class="cards">
+        <div class="card">
+          <h3>09:00 — 10:00 · Mathematics</h3>
+          <p>Room A201 · Topic: Calculus — Differentiation</p>
+          <div class="quick-buttons">
+            <button class="btn" onclick="alert('Set reminder 10 mins before')">Set Reminder</button>
+            <button class="btn" onclick="alert('Open materials')">Open Materials</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>10:00 — 11:00 · Physics</h3>
+          <p>Room A105 · Topic: Kinematics</p>
+          <div class="quick-buttons">
+            <button class="btn">Set Reminder</button>
+            <button class="btn">Open Materials</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>11:00 — 12:00 · Free Period</h3>
+          <p>Use this time to catch up on missed lessons or practice sets.</p>
+          <div class="quick-buttons">
+            <button class="btn">Practice</button>
+            <button class="btn">Review Notes</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>12:00 — 1:30 · Computer Science (Lab)</h3>
+          <p>Lab-1 · Topic: Arrays & Loops</p>
+          <div class="quick-buttons">
+            <button class="btn">View Lab Sheet</button>
+            <button class="btn">Submit Code</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>2:00 — 3:00 · English</h3>
+          <p>Room B304 · Topic: Reading Comprehension</p>
+          <div class="quick-buttons">
+            <button class="btn">Set Reminder</button>
+            <button class="btn">Open Materials</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Class Detail / Notes / Reminders -->
+    <section class="grid-2">
+      <div class="box">
+        <h2>Class Notes</h2>
+        <div class="note">Add quick notes for upcoming or past classes.</div>
+        <textarea style="width:100%;min-height:120px;border:1px solid #e5e7eb;border-radius:8px;padding:10px" placeholder="Type your notes here... e.g., bring calculator for Math tutorial"></textarea>
+        <div class="quick-buttons" style="margin-top:10px">
+          <button class="btn" onclick="alert('Note saved')">Save Note</button>
+          <button class="btn" onclick="alert('Note pinned')">Pin Note</button>
+        </div>
+      </div>
+
+      <div class="box">
+        <h2>Reminders</h2>
+        <ul>
+          <li>🔔 Math quiz on Friday 9 AM</li>
+          <li>🧪 Physics lab report due Thursday</li>
+          <li>📘 English reading due tomorrow</li>
+        </ul>
+        <div class="quick-buttons" style="margin-top:10px">
+          <button class="btn" onclick="alert('New reminder added')">Add Reminder</button>
+          <button class="btn" onclick="alert('All reminders cleared')">Clear All</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Instructor & Rooms -->
+    <section class="grid-2">
+      <div class="box">
+        <h2>Instructor Office Hours</h2>
+        <table>
+          <tr><th>Instructor</th><th>Day</th><th>Time</th><th>Location</th></tr>
+          <tr><td>Dr. Sharma (Physics)</td><td>Tue</td><td>4:00 – 5:00 PM</td><td>Room A105</td></tr>
+          <tr><td>Ms. Rao (Math)</td><td>Wed</td><td>1:30 – 2:30 PM</td><td>A201</td></tr>
+          <tr><td>Mr. Khan (CS)</td><td>Thu</td><td>3:30 – 4:30 PM</td><td>Lab-1</td></tr>
+          <tr><td>Ms. Lee (English)</td><td>Mon</td><td>11:30 – 12:30 PM</td><td>B304</td></tr>
+        </table>
+      </div>
+
+      <div class="box">
+        <h2>Campus Map / Rooms</h2>
+        <div class="chart-placeholder">🗺️ Map placeholder (add later)</div>
+        <div class="note">Add an embedded map or building layout for quick navigation.</div>
+      </div>
+    </section>
+
+    <!-- Exams / Assessments -->
+    <section class="box">
+      <h2>Upcoming Assessments</h2>
+      <table>
+        <tr><th>Course</th><th>Type</th><th>Date</th><th>Time</th><th>Weightage</th><th>Action</th></tr>
+        <tr>
+          <td>Mathematics</td><td>Quiz</td><td>Sep 05, 2025</td><td>09:00 AM</td><td>10%</td>
+          <td><button class="btn" onclick="alert('Added to calendar')">Add to Calendar</button></td>
+        </tr>
+        <tr>
+          <td>Physics</td><td>Lab Viva</td><td>Sep 06, 2025</td><td>02:30 PM</td><td>15%</td>
+          <td><button class="btn">Add to Calendar</button></td>
+        </tr>
+        <tr>
+          <td>English</td><td>Assignment</td><td>Sep 08, 2025</td><td>11:59 PM</td><td>5%</td>
+          <td><button class="btn">Add to Calendar</button></td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- Footer Alerts -->
+    <section class="box alert-box">
+      <h2>System Alerts</h2>
+      <ul>
+        <li>✅ Timetable synced successfully at 8:55 AM</li>
+        <li>⚠️ Room change: CS Lab moved to Lab-2 at 12 PM</li>
+        <li>📢 Free period now! Use this time to revise last week’s Chemistry topic</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+
+  <!-- Inline page-specific micro styles to enrich timetable look (optional) -->
+  <style>
+    .slot { cursor: default; transition: .2s; }
+    .slot:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,.08); }
+    .slot-title { font-weight: 600; color:#111827; }
+    .slot-sub { font-size: 12px; color:#6b7280; }
+    .slot-meta { font-size: 12px; color:#9ca3af; margin-top:4px; }
+    .slot.free { background: #f8fafc; }
+    /* Make the grid responsive: switch to horizontal scroll on narrow screens */
+    @media (max-width: 960px) {
+      .timetable-grid {
+        grid-template-columns: 120px repeat(5, 280px);
+        overflow-x: auto;
+        padding-bottom: 8px;
+      }
+    }
+  </style>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings | Campus360</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body.dark {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+    .dark .panel {
+      background-color: #1e1e1e;
+      color: #fff;
+    }
+    .panel {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      max-width: 600px;
+      margin: 40px auto;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    button { margin-top: 10px; }
+    img.profile-pic {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--accent1);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <main class="panel">
+    <h1>Settings</h1>
+    <section>
+      <h2>Theme</h2>
+      <label>
+        <input type="checkbox" id="theme-toggle" />
+        Enable Dark Mode
+      </label>
+    </section>
+
+    <section>
+      <h2>Profile Picture</h2>
+      <img src="https://via.placeholder.com/80" alt="Profile Picture" id="profile-pic" class="profile-pic" />
+      <input type="file" id="profile-input" accept="image/*" style="display:none" />
+      <br/>
+      <button id="change-pic-btn">Change Picture</button>
+    </section>
+
+    <section>
+      <h2>Account</h2>
+      <button id="logout-btn">Logout</button>
+    </section>
+
+    <section>
+      <h2>Login As</h2>
+      <button id="login-student-btn">Login as Student</button>
+      <button id="login-admin-btn">Login as Admin</button>
+    </section>
+  </main>
+
+  <script>
+    // Load saved theme
+    const themeToggle = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('campus_theme');
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark');
+      themeToggle.checked = true;
+    }
+
+    themeToggle.addEventListener('change', () => {
+      if (themeToggle.checked) {
+        document.body.classList.add('dark');
+        localStorage.setItem('campus_theme', 'dark');
+      } else {
+        document.body.classList.remove('dark');
+        localStorage.setItem('campus_theme', 'light');
+      }
+    });
+
+    // Profile picture change
+    const profilePic = document.getElementById('profile-pic');
+    const profileInput = document.getElementById('profile-input');
+    const changePicBtn = document.getElementById('change-pic-btn');
+
+    changePicBtn.addEventListener('click', () => profileInput.click());
+
+    profileInput.addEventListener('change', () => {
+      const file = profileInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          profilePic.src = e.target.result;
+          localStorage.setItem('campus_profile_pic', e.target.result);
+          alert('Profile picture updated!');
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Load saved profile pic
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedPic = localStorage.getItem('campus_profile_pic');
+      if (savedPic) profilePic.src = savedPic;
+    });
+
+    // Logout button
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      alert('Logged out successfully (simulated).');
+      // Redirect to login page or home
+      window.location.href = 'index.html';
+    });
+
+    // Login switch buttons
+    document.getElementById('login-student-btn').addEventListener('click', () => {
+      alert('Switched to Student login (simulated).');
+      // Redirect or load student dashboard
+      window.location.href = 'index.html';
+    });
+    document.getElementById('login-admin-btn').addEventListener('click', () => {
+      alert('Switched to Admin login (simulated).');
+      // Redirect or load admin dashboard
+      window.location.href = 'admin.html';
+    });
+
+  </script>
+</body>
+</html>

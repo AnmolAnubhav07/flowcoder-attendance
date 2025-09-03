@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Career Goals | Campus360</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">🎓 Campus360</div>
+    <div class="header-actions">
+      <input id="global-search" type="text" class="search" placeholder="🔍 Search goals, skills..." />
+      <span class="icon">🔔</span>
+      <span class="icon">⚙️</span>
+      <img src="https://via.placeholder.com/35" alt="Profile" class="profile-pic" />
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>Menu</h2>
+    <nav>
+      <a href="index.html">🏠 Dashboard</a>
+      <a href="attendance.html">📅 Attendance History</a>
+      <a href="timetable.html">🕒 Timetable</a>
+      <a href="learning.html">📘 Personalized Learning</a>
+      <a href="goals.html" class="active">🎯 Career Goals</a>
+      <a href="reports.html">📊 Reports</a>
+      <a href="admin.html">👩‍🏫 Admin Panel</a>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+    <h1>Career Goals & Skill Building</h1>
+    <p id="date"></p>
+
+    <!-- Top summary -->
+    <section class="cards" aria-label="goals-summary">
+      <div class="card">
+        <h3>Active Goals</h3>
+        <p id="summary-active" style="font-size:20px;font-weight:700;">3</p>
+        <p class="note">Goals you are currently tracking</p>
+      </div>
+
+      <div class="card">
+        <h3>Skills Suggested</h3>
+        <p id="summary-skills" style="font-size:20px;font-weight:700;">7</p>
+        <p class="note">Auto-suggested based on goals & performance</p>
+      </div>
+
+      <div class="card">
+        <h3>Progress Toward Top Goal</h3>
+        <p id="summary-progress" style="font-size:20px;font-weight:700;">64%</p>
+        <p class="note">Average completion across milestones</p>
+      </div>
+
+      <div class="card">
+        <h3>Completed Goals</h3>
+        <p id="summary-completed" style="font-size:20px;font-weight:700;">1</p>
+        <p class="note">Goals you marked achieved</p>
+      </div>
+    </section>
+
+    <!-- Controls -->
+    <section class="box">
+      <h2>Manage Goals</h2>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <button class="btn" onclick="openAddGoalModal()">+ Add New Goal</button>
+
+        <label>
+          Goal Type:
+          <select id="filter-goal-type">
+            <option value="all">All</option>
+            <option value="career">Career</option>
+            <option value="skill">Skill</option>
+            <option value="certification">Certification</option>
+          </select>
+        </label>
+
+        <label>
+          Sort by:
+          <select id="sort-goals">
+            <option value="recent">Most Recent</option>
+            <option value="progress">Least Progress</option>
+            <option value="priority">Priority</option>
+          </select>
+        </label>
+
+        <button class="btn" onclick="exportGoals()">Export CSV</button>
+        <button class="btn" onclick="shareGoals()">Share</button>
+      </div>
+    </section>
+
+    <!-- Goals list & suggested skills -->
+    <section class="grid-2">
+      <!-- Left: Goals list -->
+      <div class="box" id="goals-list-box">
+        <h2>Your Goals</h2>
+        <div id="goals-list">
+          <!-- Goal items injected by JS -->
+        </div>
+
+        <div style="text-align:center;margin-top:12px">
+          <button class="btn" onclick="loadMoreGoals()">Load more</button>
+        </div>
+      </div>
+
+      <!-- Right: Suggested skills & courses -->
+      <div class="box">
+        <h2>Suggested Skills & Courses</h2>
+        <p class="note">Recommendations based on your selected goals and missed topics.</p>
+
+        <div id="suggested-skills" style="margin-top:10px;display:grid;grid-template-columns:1fr;gap:10px">
+          <!-- Skill cards injected by JS -->
+        </div>
+
+        <hr style="margin:14px 0" />
+
+        <h3>Quick Actions</h3>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn" onclick="startSuggestedTask()">Start Suggested Task</button>
+          <button class="btn" onclick="viewRecommended()">View Curriculum</button>
+          <button class="btn" onclick="addSkillToPlan()">Add Skill to Plan</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Goal detail + milestones + timeline -->
+    <section class="grid-2">
+      <div class="box" id="goal-detail-box">
+        <h2>Selected Goal</h2>
+        <div id="goal-detail">
+          <p class="note">Select a goal from the left to view details. Example goals include "Python for Engineers", "UI/UX Designer", "Communication Skills".</p>
+        </div>
+
+        <div style="margin-top:12px" id="milestones-area">
+          <!-- Milestones injected by JS -->
+        </div>
+
+        <div style="margin-top:12px">
+          <button class="btn" id="mark-achieved-btn" onclick="markGoalAchieved()" disabled>Mark Goal Achieved</button>
+          <button class="btn" onclick="editSelectedGoal()" id="edit-goal-btn" disabled>Edit Goal</button>
+        </div>
+      </div>
+
+      <div class="box">
+        <h2>Goal Timeline & Activity</h2>
+        <div class="note">Recent actions and progress updates</div>
+        <ul id="activity-log" style="margin-top:10px">
+          <!-- activity entries injected -->
+        </ul>
+
+        <hr style="margin:12px 0" />
+        <h3>Goal Analytics</h3>
+        <div class="chart-placeholder" style="height:180px">📈 Goal progress chart</div>
+        <p class="note" style="margin-top:8px">You can connect these to Chart.js later for real visuals.</p>
+      </div>
+    </section>
+
+    <!-- Recommendations & Learning Path -->
+    <section class="box">
+      <h2>Learning Path Builder</h2>
+      <p class="note">Select a goal and auto-generate a recommended learning path (courses, practice sets, projects).</p>
+
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
+        <button class="btn" onclick="generateLearningPath()">Generate Path</button>
+        <button class="btn" onclick="savePath()">Save Path</button>
+        <button class="btn" onclick="exportPath()">Export Path</button>
+      </div>
+
+      <div id="path-output" style="margin-top:12px"></div>
+    </section>
+
+    <!-- Footer actions -->
+    <section style="margin-top:18px;display:flex;gap:12px;align-items:center">
+      <button class="btn" onclick="openAddGoalModal()">+ Add Goal</button>
+      <button class="btn" onclick="bulkMark()">Mark Selected Achieved</button>
+      <button class="btn" onclick="clearCompleted()">Clear Completed</button>
+    </section>
+  </main>
+
+  <!-- Add Goal Modal (hidden by default) -->
+  <div id="modal-backdrop" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);align-items:center;justify-content:center;z-index:2000">
+    <div style="width:720px;background:#fff;border-radius:12px;padding:18px;box-shadow:0 8px 30px rgba(0,0,0,0.2);">
+      <h2 style="margin-top:0">Create New Goal</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <label>
+          Goal Title
+          <input id="new-goal-title" type="text" placeholder="e.g., Python for Engineers" style="width:100%;padding:8px;margin-top:6px;border-radius:6px;border:1px solid #e6eefc" />
+        </label>
+        <label>
+          Type
+          <select id="new-goal-type" style="width:100%;padding:8px;margin-top:6px;border-radius:6px;border:1px solid #e6eefc">
+            <option value="career">Career</option>
+            <option value="skill">Skill</option>
+            <option value="certification">Certification</option>
+          </select>
+        </label>
+        <label style="grid-column:span 2">
+          Short Description
+          <textarea id="new-goal-desc" placeholder="Describe goal and why you want it..." style="width:100%;height:80px;padding:8px;margin-top:6px;border-radius:6px;border:1px solid #e6eefc"></textarea>
+        </label>
+
+        <label>
+          Target Date
+          <input id="new-goal-date" type="date" style="width:100%;padding:8px;margin-top:6px;border-radius:6px;border:1px solid #e6eefc" />
+        </label>
+
+        <label>
+          Priority
+          <select id="new-goal-priority" style="width:100%;padding:8px;margin-top:6px;border-radius:6px;border:1px solid #e6eefc">
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+          </select>
+        </label>
+
+        <div style="grid-column:span 2;display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+          <button class="btn" onclick="closeAddGoalModal()">Cancel</button>
+          <button class="btn" onclick="createGoal()">Create Goal</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+
+  <!-- Page-specific script -->
+  <script>
+    // Simple front-end data store (in-memory; persists to localStorage)
+    const sampleGoals = [
+      {
+        id: 'g1',
+        title: 'Python for Engineers',
+        type: 'skill',
+        priority: 'high',
+        description: 'Automation, data handling, scripting for engineering tasks.',
+        targetDate: '2025-12-31',
+        progress: 64,
+        milestones: [
+          { id: 'm1', title: 'Complete Python Basics', done: true },
+          { id: 'm2', title: 'Work on 3 projects', done: false },
+          { id: 'm3', title: 'Build automation script for lab', done: false }
+        ],
+        createdAt: Date.now() - (1000 * 60 * 60 * 24 * 10)
+      },
+      {
+        id: 'g2',
+        title: 'UI/UX Designer Portfolio',
+        type: 'career',
+        priority: 'medium',
+        description: 'Design thinking, Figma portfolio, case studies.',
+        targetDate: '2026-03-30',
+        progress: 30,
+        milestones: [
+          { id: 'm4', title: 'Finish 3 case studies', done: false },
+          { id: 'm5', title: 'Create Figma portfolio', done: false }
+        ],
+        createdAt: Date.now() - (1000 * 60 * 60 * 24 * 30)
+      },
+      {
+        id: 'g3',
+        title: 'Communication Skills',
+        type: 'skill',
+        priority: 'low',
+        description: 'Public speaking and writing practice.',
+        targetDate: '2025-11-15',
+        progress: 82,
+        milestones: [
+          { id: 'm6', title: 'Join Toastmasters', done: true },
+          { id: 'm7', title: 'Complete writing course', done: false }
+        ],
+        createdAt: Date.now() - (1000 * 60 * 60 * 24 * 5)
+      }
+    ];
+
+    // load from localStorage or use sample
+    function loadGoalsFromStorage() {
+      try {
+        const raw = localStorage.getItem('campus_goals_v1');
+        if (raw) return JSON.parse(raw);
+      } catch(e) { /* ignore */ }
+      return sampleGoals;
+    }
+
+    function saveGoalsToStorage(goals) {
+      localStorage.setItem('campus_goals_v1', JSON.stringify(goals));
+    }
+
+    let goals = loadGoalsFromStorage();
+    let selectedGoalId = null;
+
+    // Utility: render goals list
+    function renderGoalsList() {
+      const container = document.getElementById('goals-list');
+      container.innerHTML = '';
+      if (!goals || goals.length === 0) {
+        container.innerHTML = '<p class="note">No goals yet. Click "Add New Goal" to create one.</p>';
+        updateSummaries();
+        return;
+      }
+
+      goals.sort((a,b) => b.createdAt - a.createdAt);
+      goals.forEach(g => {
+        const div = document.createElement('div');
+        div.className = 'course-card';
+        div.style = 'padding:12px;border-radius:10px;border:1px solid #eef2ff;margin-bottom:10px;background:#fff;';
+
+        div.innerHTML = `
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="max-width:70%">
+              <div style="display:flex;gap:8px;align-items:center">
+                <strong style="font-size:16px">${escapeHtml(g.title)}</strong>
+                <span style="font-size:12px;color:#6b7280;padding:4px 8px;border-radius:6px;background:#f1f5f9">${g.type}</span>
+                <span style="font-size:12px;color:#374151;margin-left:8px">Priority: ${g.priority}</span>
+              </div>
+              <div class="note" style="margin-top:6px">${escapeHtml(g.description)}</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:13px;color:#374151">Progress</div>
+              <div class="progress-bar" style="height:18px;width:140px;margin-top:6px">
+                <span style="width:${g.progress}%">${g.progress}%</span>
+              </div>
+              <div style="margin-top:8px;display:flex;gap:6px;justify-content:flex-end">
+                <button class="btn" onclick="selectGoal('${g.id}')">View</button>
+                <button class="btn" onclick="openEditGoalModal('${g.id}')">Edit</button>
+                <button class="btn" onclick="toggleGoalSelect('${g.id}', this)">Select</button>
+              </div>
+            </div>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+
+      updateSummaries();
+    }
+
+    // escape simple HTML for safety
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    // select goal and show in detail panel
+    function selectGoal(id) {
+      selectedGoalId = id;
+      const g = goals.find(x => x.id === id);
+      const det = document.getElementById('goal-detail');
+      det.innerHTML = `
+        <h3 style="margin-top:0">${escapeHtml(g.title)}</h3>
+        <div class="note">Type: ${g.type} · Priority: ${g.priority} · Target: ${g.targetDate || '—'}</div>
+        <p style="margin-top:12px">${escapeHtml(g.description)}</p>
+        <div style="margin-top:12px">
+          <strong>Progress: ${g.progress}%</strong>
+          <div class="progress-bar" style="height:18px;margin-top:8px;">
+            <span style="width:${g.progress}%"></span>
+          </div>
+        </div>
+      `;
+
+      // render milestones
+      renderMilestones(g);
+      // enable buttons
+      document.getElementById('mark-achieved-btn').disabled = g.progress >= 100 ? true : false;
+      document.getElementById('edit-goal-btn').disabled = false;
+      logActivity(`Viewed goal: ${g.title}`);
+    }
+
+    function renderMilestones(goal) {
+      const container = document.getElementById('milestones-area');
+      container.innerHTML = '<h3 style="margin-top:12px">Milestones</h3>';
+      if (!goal.milestones || goal.milestones.length === 0) {
+        container.innerHTML += '<p class="note">No milestones. Add them while editing the goal.</p>';
+        return;
+      }
+      const list = document.createElement('ul');
+      list.style.listStyle = 'none';
+      list.style.padding = '0';
+      goal.milestones.forEach(m => {
+        const li = document.createElement('li');
+        li.style.display = 'flex';
+        li.style.alignItems = 'center';
+        li.style.justifyContent = 'space-between';
+        li.style.padding = '8px 0';
+        li.innerHTML = `
+          <div style="display:flex;align-items:center;gap:10px">
+            <input type="checkbox" ${m.done ? 'checked' : ''} onchange="toggleMilestone('${goal.id}','${m.id}',this)" />
+            <div>
+              <div style="font-weight:600">${escapeHtml(m.title)}</div>
+              <div class="note" style="margin-top:4px">${m.done ? 'Completed' : 'Pending'}</div>
+            </div>
+          </div>
+          <div>
+            <button class="btn" onclick="removeMilestone('${goal.id}','${m.id}')">Remove</button>
+          </div>
+        `;
+        list.appendChild(li);
+      });
+      container.appendChild(list);
+    }
+
+    function toggleMilestone(goalId, milestoneId, checkbox) {
+      const g = goals.find(x => x.id === goalId);
+      if (!g) return;
+      const m = g.milestones.find(mm => mm.id === milestoneId);
+      if (!m) return;
+      m.done = checkbox.checked;
+      // recalc progress simply as percent of milestones done
+      const total = g.milestones.length;
+      const done = g.milestones.filter(x => x.done).length;
+      g.progress = Math.round((done / total) * 100);
+      saveGoalsToStorage(goals);
+      renderGoalsList();
+      selectGoal(goalId);
+      logActivity(`Updated milestone "${m.title}" (${m.done ? 'done' : 'pending'}) on "${g.title}"`);
+    }
+
+    function removeMilestone(goalId, milestoneId) {
+      const g = goals.find(x => x.id === goalId);
+      if (!g) return;
+      g.milestones = g.milestones.filter(m => m.id !== milestoneId);
+      saveGoalsToStorage(goals);
+      renderGoalsList();
+      selectGoal(goalId);
+      logActivity(`Removed milestone on "${g.title}"`);
+    }
+
+    // Add goal modal controls
+    function openAddGoalModal() {
+      document.getElementById('modal-backdrop').style.display = 'flex';
+      // clear fields
+      document.getElementById('new-goal-title').value = '';
+      document.getElementById('new-goal-desc').value = '';
+      document.getElementById('new-goal-date').value = '';
+      document.getElementById('new-goal-priority').value = 'medium';
+    }
+    function closeAddGoalModal() {
+      document.getElementById('modal-backdrop').style.display = 'none';
+    }
+
+    function createGoal() {
+      const title = document.getElementById('new-goal-title').value.trim();
+      if (!title) return alert('Please enter a goal title');
+      const type = document.getElementById('new-goal-type').value;
+      const desc = document.getElementById('new-goal-desc').value.trim();
+      const date = document.getElementById('new-goal-date').value;
+      const priority = document.getElementById('new-goal-priority').value;
+      const id = 'g' + (Date.now());
+      const newGoal = {
+        id, title, type, description: desc, targetDate: date, priority,
+        progress: 0, milestones: [], createdAt: Date.now()
+      };
+      goals.unshift(newGoal);
+      saveGoalsToStorage(goals);
+      renderGoalsList();
+      closeAddGoalModal();
+      logActivity(`Created goal: ${title}`);
+    }
+
+    // Editing (simple modal reuse)
+    function openEditGoalModal(id) {
+      const g = goals.find(x => x.id === id);
+      if (!g) return alert('Goal not found');
+      openAddGoalModal();
+      document.getElementById('new-goal-title').value = g.title;
+      document.getElementById('new-goal-desc').value = g.description;
+      document.getElementById('new-goal-date').value = g.targetDate || '';
+      document.getElementById('new-goal-priority').value = g.priority || 'medium';
+      // modify createGoal to detect edit (for simplicity, replace on create)
+      // We'll store editId temporarily
+      document.getElementById('modal-backdrop').dataset.editId = id;
+      // change Create button behavior temporarily
+      const createBtn = Array.from(document.querySelectorAll('#modal-backdrop .btn')).find(b => b.textContent === 'Create Goal');
+      if (createBtn) createBtn.textContent = 'Save Changes';
+      // override createGoal
+      createBtn.onclick = function () { saveGoalEdits(id); };
+    }
+
+    function saveGoalEdits(id) {
+      const g = goals.find(x => x.id === id);
+      if (!g) return;
+      g.title = document.getElementById('new-goal-title').value.trim();
+      g.description = document.getElementById('new-goal-desc').value.trim();
+      g.targetDate = document.getElementById('new-goal-date').value;
+      g.priority = document.getElementById('new-goal-priority').value;
+      saveGoalsToStorage(goals);
+      closeAddGoalModal();
+      renderGoalsList();
+      logActivity(`Edited goal: ${g.title}`);
+      // restore create button
+      resetModalCreateButton();
+    }
+
+    function resetModalCreateButton() {
+      const createBtn = Array.from(document.querySelectorAll('#modal-backdrop .btn')).find(b => b.textContent !== 'Cancel' && b.textContent);
+      if (!createBtn) return;
+      createBtn.textContent = 'Create Goal';
+      createBtn.onclick = createGoal;
+      delete document.getElementById('modal-backdrop').dataset.editId;
+    }
+
+    // mark achieved
+    function markGoalAchieved() {
+      if (!selectedGoalId) return alert('Select a goal first');
+      const g = goals.find(x => x.id === selectedGoalId);
+      if (!g) return;
+      g.progress = 100;
+      saveGoalsToStorage(goals);
+      renderGoalsList();
+      selectGoal(selectedGoalId);
+      logActivity(`Marked goal achieved: ${g.title}`);
+      updateSummaries();
+    }
+
+    function editSelectedGoal() {
+      if (!selectedGoalId) return alert('Select a goal first');
+      openEditGoalModal(selectedGoalId);
+    }
+
+    // suggested skills rendering
+    const sampleSkills = [
+      { key: 'python', label: 'Python Programming', reason: 'Recommended for automation and data tasks' },
+      { key: 'data-structures', label: 'Data Structures', reason: 'Improve problem-solving for engineering' },
+      { key: 'communication', label: 'Communication Skills', reason: 'Helps in interviews and presentations' },
+      { key: 'design-thinking', label: 'Design Thinking', reason: 'For UI/UX & product design goals' },
+      { key: 'portfolio', label: 'Portfolio Creation', reason: 'Critical for design career goals' },
+      { key: 'sql', label: 'SQL Basics', reason: 'Useful for data projects' },
+      { key: 'git', label: 'Git & Version Control', reason: 'Essential for dev workflows' }
+    ];
+
+    function renderSuggestedSkills() {
+      const container = document.getElementById('suggested-skills');
+      container.innerHTML = '';
+      sampleSkills.forEach(s => {
+        const div = document.createElement('div');
+        div.style = 'background:#fff;padding:10px;border-radius:8px;border:1px solid #eef2ff;display:flex;align-items:center;justify-content:space-between';
+        div.innerHTML = `
+          <div>
+            <div style="font-weight:600">${s.label}</div>
+            <div class="note" style="margin-top:4px">${s.reason}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <div style="font-size:12px;color:#6b7280">Estimated: 4–6 hrs</div>
+            <div style="display:flex;gap:6px">
+              <button class="btn" onclick="addSkill('${s.key}')">Add</button>
+              <button class="btn" onclick="previewSkill('${s.key}')">Preview</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+      document.getElementById('summary-skills').innerText = sampleSkills.length;
+    }
+
+    function addSkill(key) {
+      alert('Skill added to your learning plan: ' + key);
+      logActivity('Added skill to plan: ' + key);
+    }
+    function previewSkill(key) {
+      alert('Previewing skill: ' + key);
+    }
+
+    // activity log
+    function logActivity(text) {
+      const ul = document.getElementById('activity-log');
+      const li = document.createElement('li');
+      li.style.padding = '8px 0';
+      li.innerHTML = `<div style="font-size:13px">${escapeHtml(text)}</div><div class="note" style="font-size:12px">${new Date().toLocaleString()}</div>`;
+      ul.insertBefore(li, ul.firstChild);
+    }
+
+    // export CSV
+    function exportGoals() {
+      if (!goals || goals.length === 0) return alert('No goals to export');
+      const rows = [['Title','Type','Priority','Progress','TargetDate','Description']];
+      goals.forEach(g => {
+        rows.push([g.title,g.type,g.priority,g.progress,(g.targetDate||''),g.description.replace(/,/g,';')]);
+      });
+      const csv = rows.map(r => r.join(',')).join('\\n');
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'goals_export.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+      logActivity('Exported goals CSV');
+    }
+
+    function shareGoals() {
+      alert('Share link copied to clipboard (simulated).');
+      logActivity('Shared goals profile');
+    }
+
+    // helpers: load more, bulk actions
+    function loadMoreGoals() {
+      alert('Loading more (simulated) — in real app fetch additional goals.');
+    }
+
+    function bulkMark() {
+      // mark all goals with progress >= 90 as achieved
+      const changed = [];
+      goals.forEach(g => {
+        if (g.progress >= 90 && g.progress < 100) {
+          g.progress = 100;
+          changed.push(g.title);
+        }
+      });
+      if (changed.length === 0) return alert('No high-progress goals found to mark.');
+      saveGoalsToStorage(goals);
+      renderGoalsList();
+      logActivity('Bulk marked achieved: ' + changed.join(', '));
+      alert('Marked achieved: ' + changed.join(', '));
+    }
+
+    function clearCompleted() {
+      const before = goals.length;
+      goals = goals.filter(g => g.progress < 100);
+      saveGoalsToStorage(goals);
+      renderGoalsList();
+      logActivity('Cleared completed goals');
+      alert('Cleared completed goals — removed ' + (before - goals.length) + ' items.');
+    }
+
+    // goal path generator (dummy)
+    function generateLearningPath() {
+      if (!selectedGoalId) return alert('Select a goal to generate path');
+      const g = goals.find(x => x.id === selectedGoalId);
+      if (!g) return;
+      const out = document.getElementById('path-output');
+      out.innerHTML = '';
+      const ul = document.createElement('ul');
+      ul.style.listStyle = 'none';
+      ul.style.padding = '0';
+      const steps = [
+        'Fundamentals — 2 weeks',
+        'Practice sets & quizzes — 1 week',
+        'Mini project — 1 week',
+        'Portfolio entry / report — 3 days',
+        'Mock interview / demo — 2 days'
+      ];
+      steps.forEach((s,i) => {
+        const li = document.createElement('li');
+        li.style.padding = '8px 0';
+        li.innerHTML = `<strong>Step ${i+1}:</strong> ${s}`;
+        ul.appendChild(li);
+      });
+      out.appendChild(ul);
+      logActivity('Generated learning path for ' + g.title);
+    }
+
+    function savePath() {
+      alert('Saved learning path (simulated).');
+      logActivity('Saved learning path');
+    }
+    function exportPath() {
+      alert('Exported path as PDF (simulated).');
+      logActivity('Exported learning path');
+    }
+
+    // start suggested task
+    function startSuggestedTask() {
+      alert('Starting suggested task: Practice set (simulated).');
+      logActivity('Started suggested task');
+    }
+
+    function viewRecommended() {
+      alert('Opening recommended curriculum (simulated).');
+      logActivity('Viewed recommended curriculum');
+    }
+    function addSkillToPlan() {
+      alert('Skill added to learning plan.');
+      logActivity('Added skill to plan');
+    }
+
+    // small helpers for modal buttons reset
+    document.addEventListener('DOMContentLoaded', () => {
+      // initial render
+      renderGoalsList();
+      renderSuggestedSkills();
+      // set summary counts
+      updateSummaries();
+      // preload activity log with a few items
+      logActivity('Welcome to Career Goals — your personal skill builder.');
+      logActivity('Tip: Click Add New Goal to start tracking a goal.');
+      // default create button assignment
+      resetModalCreateButton();
+    });
+
+    function updateSummaries() {
+      const active = goals.filter(g => g.progress < 100).length;
+      const completed = goals.filter(g => g.progress >= 100).length;
+      const avg = goals.length ? Math.round(goals.reduce((a,b) => a + (b.progress || 0),0)/goals.length) : 0;
+      document.getElementById('summary-active').innerText = active;
+      document.getElementById('summary-completed').innerText = completed;
+      document.getElementById('summary-progress').innerText = avg + '%';
+    }
+
+    // small functions used by other pages might be present in script.js; local overrides:
+    function escapeHtmlLocal(s){ return escapeHtml(s); }
+
+    // editing flow: when user clicks Create Goal without edit context, default createGoal will run
+    // createGoal already assigned as function by global scope earlier
+  </script>
+
+  <!-- Inline styling specific to goals page for extra polish -->
+  <style>
+    /* ensure boxes in this page look consistent */
+    #goals-list .course-card { transition: box-shadow .15s ease; }
+    #goals-list .course-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-4px); }
+    #activity-log li { border-bottom: 1px dashed #eef2ff; padding-bottom:8px; margin-bottom:8px; }
+    /* Responsive */
+    @media (max-width: 980px) {
+      .grid-2 { grid-template-columns: 1fr !important; }
+      .sidebar { display:none; }
+      .main { margin-left: 0 !important; padding: 80px 16px; }
+    }
+  </style>
+</body>
+</html>

@@ -1,0 +1,530 @@
+/* ===========================
+   Campus360 — style.css
+   Comprehensive styling for the multi-page frontend
+   =========================== */
+
+/* --------- Reset & base --------- */
+:root{
+  --bg: #f4f6f9;
+  --panel: #ffffff;
+  --muted: #6b7280;
+  --accent1: #4f46e5;
+  --accent2: #6366f1;
+  --success: #16a34a;
+  --danger: #ef4444;
+  --glass: rgba(255,255,255,0.6);
+  --card-shadow: 0 6px 20px rgba(15,23,42,0.06);
+  --radius-lg: 12px;
+  --radius-md: 8px;
+  --radius-sm: 6px;
+  --max-width: 1200px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html,body { height: 100%; }
+body {
+  font-family: "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: #0f172a;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height: 1.45;
+}
+
+/* --------- Layout: header + sidebar + main --------- */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  color: #fff;
+  z-index: 1200;
+  box-shadow: 0 6px 18px rgba(79,70,229,0.06);
+}
+
+.header .logo {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  font-weight:700;
+  font-size:18px;
+}
+
+.header .header-actions {
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+
+/* search */
+.search {
+  min-width:220px;
+  max-width:420px;
+  padding:8px 12px;
+  border-radius:8px;
+  border: none;
+  outline: none;
+  font-size:14px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+}
+.search::placeholder { color: rgba(255,255,255,0.8); }
+
+/* tiny icons */
+.icon { font-size:18px; cursor:pointer; opacity:0.95; }
+.profile-pic {
+  width:36px; height:36px; border-radius:50%;
+  object-fit:cover;
+  border: 2px solid rgba(255,255,255,0.15);
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  padding: 84px 18px 20px 18px; /* leave header space */
+  background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+  color: #e6eefc;
+  overflow-y: auto;
+  z-index: 1100;
+  transition: transform .22s ease;
+}
+
+.sidebar h2 {
+  font-size:13px;
+  margin-bottom:10px;
+  color: #9aa4d3;
+  text-transform:uppercase;
+  letter-spacing:0.6px;
+}
+
+/* nav */
+.sidebar nav { display:flex; flex-direction:column; gap:8px; }
+.sidebar a {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:10px;
+  color: #e6eefc;
+  text-decoration:none;
+  font-size:14px;
+  transition: all .18s ease;
+}
+.sidebar a:hover { background: rgba(255,255,255,0.04); transform: translateY(-1px); }
+.sidebar a.active { background: rgba(255,255,255,0.06); box-shadow: inset 0 1px 0 rgba(255,255,255,0.02); }
+
+/* collapse on mobile */
+.sidebar.open { transform: translateX(0); }
+@media (max-width: 980px) {
+  .sidebar { transform: translateX(-100%); position:fixed; }
+}
+
+/* Main wrapper */
+.main {
+  margin-left: 300px; /* space for sidebar */
+  padding: 92px 28px 40px;
+  min-height: 100vh;
+  transition: margin-left .18s ease;
+  max-width: calc(100% - 300px);
+}
+
+/* when sidebar hidden on mobile */
+body.sidebar-open .main { margin-left: 20px; }
+
+/* --------- Utility containers --------- */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* content boxes & cards */
+.card, .box {
+  background: var(--panel);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(12,18,30,0.03);
+}
+
+/* compact card */
+.card {
+  padding: 16px;
+  min-height: 72px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+/* titles inside boxes */
+.box h2, .card h3 {
+  margin-bottom:10px;
+  font-size:16px;
+  color: #0f172a;
+}
+
+/* small note text */
+.note {
+  color: var(--muted);
+  font-size:13px;
+}
+
+/* --------- Grid systems --------- */
+.cards {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap:18px;
+  margin-bottom:18px;
+}
+
+.grid-2 {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:18px;
+  margin-bottom:18px;
+}
+
+/* make responsive stacks */
+@media (max-width:980px){
+  .cards { grid-template-columns: 1fr; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .main { padding: 82px 16px 30px; margin-left: 0; }
+}
+
+/* --------- Buttons --------- */
+.btn {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:9px 14px;
+  font-weight:600;
+  font-size:14px;
+  color:#fff;
+  background: linear-gradient(135deg, var(--accent2), var(--accent1));
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+  box-shadow: 0 8px 22px rgba(79,70,229,0.12);
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(79,70,229,0.14); }
+.btn:active { transform: translateY(0); }
+
+/* neutral button */
+.btn.ghost {
+  background: transparent;
+  color: #0f172a;
+  border: 1px solid rgba(15,23,42,0.06);
+  box-shadow: none;
+}
+
+/* success / danger */
+.btn.success { background: linear-gradient(90deg,#22c55e,#16a34a); box-shadow:none; }
+.btn.warn { background: linear-gradient(90deg,#f59e0b,#f97316); }
+
+/* tiny icon-only */
+.btn.icon {
+  padding:8px;
+  width:38px;
+  height:38px;
+  justify-content:center;
+}
+
+/* --------- Cards content styles --------- */
+.card h3 { font-size:15px; color: #0f172a; margin-bottom:6px; }
+.card p { color: var(--muted); font-size:14px; }
+
+/* special present card */
+.card.present {
+  background: linear-gradient(135deg,#16a34a,#059669);
+  color: #fff;
+  box-shadow: 0 12px 30px rgba(6,95,70,0.16);
+}
+
+/* --------- Tables --------- */
+table {
+  width:100%;
+  border-collapse: collapse;
+  font-size:14px;
+  background: transparent;
+}
+
+table thead th {
+  text-align:left;
+  padding:12px 10px;
+  background: linear-gradient(180deg, rgba(15,23,42,0.02), rgba(15,23,42,0.00));
+  font-weight:700;
+  color:#0f172a;
+}
+
+table tbody td {
+  padding:12px 10px;
+  border-bottom: 1px solid rgba(15,23,42,0.04);
+  color:#111827;
+}
+
+table tr:hover td {
+  background: rgba(79,70,229,0.02);
+}
+
+/* small table */
+.table-compact thead th, .table-compact tbody td {
+  padding:8px 6px;
+  font-size:13px;
+}
+
+/* badge / tag */
+.tag {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 8px;
+  border-radius:999px;
+  background: rgba(15,23,42,0.04);
+  font-size:13px;
+}
+
+/* status badges */
+.status-good { color:#065f46; background: rgba(16,185,129,0.08); padding:6px 8px; border-radius:8px; display:inline-block; }
+.status-late { color:#92400e; background: rgba(245,158,11,0.08); padding:6px 8px; border-radius:8px; display:inline-block; }
+.status-absent { color:#991b1b; background: rgba(239,68,68,0.06); padding:6px 8px; border-radius:8px; display:inline-block; }
+
+/* --------- Progress bars --------- */
+.progress-bar {
+  height: 18px;
+  border-radius: 999px;
+  background: rgba(15,23,42,0.05);
+  overflow:hidden;
+  margin:10px 0;
+}
+.progress-bar span {
+  display:block;
+  height:100%;
+  background: linear-gradient(90deg,#3b82f6,#06b6d4);
+  color:#fff;
+  padding-left:10px;
+  line-height:18px;
+  font-weight:700;
+  font-size:13px;
+}
+
+/* small label + percent */
+.progress-inline {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+/* --------- Chart placeholders --------- */
+.chart-placeholder {
+  min-height:160px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--muted);
+  border:1px dashed rgba(15,23,42,0.06);
+  background: linear-gradient(180deg, rgba(15,23,42,0.01), rgba(15,23,42,0.00));
+}
+
+/* --------- Alerts list --------- */
+.alert-box ul { list-style:none; padding:0; margin:8px 0; }
+.alert-box ul li {
+  padding:10px 12px;
+  border-radius:8px;
+  background: rgba(255,255,255,0.6);
+  margin-bottom:8px;
+  font-size:14px;
+  color:#0f172a;
+  box-shadow: 0 2px 8px rgba(15,23,42,0.03);
+}
+
+/* --------- Course / card small patterns --------- */
+.course-card {
+  border-radius:10px;
+  padding:12px;
+  background: #fff;
+  border: 1px solid rgba(14, 42, 80, 0.03);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.course-card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(12,18,48,0.06); }
+
+/* slot / timetable small styles */
+.slot { border-radius:8px; padding:8px; background: linear-gradient(180deg,#fff,#fbfdff); border:1px solid rgba(15,23,42,0.03); }
+.slot.free { background: linear-gradient(180deg,#f8fafc,#ffffff); color: var(--muted); }
+
+/* small helper */
+.kv { font-size:13px; color:var(--muted); }
+
+/* --------- Modal (backdrop handled inline) --------- */
+.modal {
+  position: fixed;
+  inset: 0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:2200;
+  background: rgba(2,6,23,0.55);
+}
+.modal .dialog {
+  width: 760px;
+  max-width: calc(100% - 32px);
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 12px 40px rgba(2,6,23,0.4);
+}
+
+/* --------- Form elements --------- */
+input[type="text"], input[type="date"], select, textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius:8px;
+  border: 1px solid rgba(15,23,42,0.06);
+  background: #fff;
+  font-size:14px;
+  color: #0f172a;
+  outline: none;
+}
+input:focus, select:focus, textarea:focus {
+  box-shadow: 0 8px 24px rgba(79,70,229,0.08);
+  border-color: rgba(79,70,229,0.4);
+}
+
+/* --------- Tiny helpers --------- */
+.row { display:flex; gap:12px; align-items:center; }
+.col { flex:1; }
+
+/* spacing */
+.mt-6 { margin-top: 6px; }
+.mt-12 { margin-top: 12px; }
+.mb-12 { margin-bottom: 12px; }
+
+/* subtle divider */
+.hr { height:1px; background: rgba(15,23,42,0.03); margin:12px 0; border-radius:2px; }
+
+/* --------- Toast container (script uses) --------- */
+#campus-toast-container {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9999;
+  display:flex;
+  flex-direction:column-reverse;
+  gap:8px;
+}
+
+/* small overlay for mobile */
+.backdrop {
+  position:fixed;
+  inset:0;
+  background: rgba(2,6,23,0.5);
+}
+
+/* --------- Responsive tweaks --------- */
+@media (max-width: 1240px){
+  .main { margin-left: 220px; max-width: calc(100% - 220px); }
+  .sidebar { width: 220px; }
+}
+@media (max-width: 980px){
+  .header .search { display: none; }
+  .sidebar { display: none; }
+  .main { margin-left: 0; padding: 84px 16px 30px; }
+  .cards { grid-template-columns: 1fr; }
+}
+
+/* extra micro-interactions */
+button:disabled, .btn[disabled] { opacity: 0.6; transform:none; cursor:not-allowed; box-shadow:none; }
+
+/* subtle focus ring for accessibility */
+:focus { outline: 3px solid rgba(79,70,229,0.08); outline-offset: 2px; }
+
+/* end of file */
+
+/* --------- Profile modal for settings --------- */
+#profileModal {
+  display: none; /* hidden by default */
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 2300;
+  justify-content: center;
+  align-items: center;
+}
+
+#profileModal.active {
+  display: flex;
+}
+
+#profileModal .modal-content {
+  background: var(--panel);
+  border-radius: var(--radius-lg);
+  width: 400px;
+  max-width: 90%;
+  padding: 20px;
+  box-shadow: 0 12px 40px rgba(2,6,23,0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#profileModal h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #0f172a;
+}
+
+#profileModal label {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+#profileModal input[type="text"],
+#profileModal input[type="email"] {
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(15,23,42,0.06);
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  color: #0f172a;
+}
+
+#profileModal input:focus {
+  border-color: var(--accent1);
+  box-shadow: 0 8px 24px rgba(79,70,229,0.08);
+}
+
+#profileModal .modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+#profileModal .modal-actions .btn {
+  flex: none;
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+/* small avatar inside modal */
+#profileModal .avatar-preview {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
+  border: 2px solid rgba(0,0,0,0.08);
+  align-self: center;
+}
